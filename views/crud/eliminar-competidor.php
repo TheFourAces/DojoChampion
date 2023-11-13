@@ -6,13 +6,14 @@
     <title>Eliminar competidores</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" type="image/x-icon" href="http://localhost/Arreglado/logo.png">
+
 </head>
 <body>
     
-<div id="mySidebar">
-  <img src="../../logo.png" alt="">
-  <a href="../competidores.php" class="texto">Competidores</a>
-</div>
+<?php
+include "../sidebar.php";
+?>
 <div id="main" style="width:80vw;">
 
     <div class="container mt-5">

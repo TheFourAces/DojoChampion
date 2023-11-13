@@ -6,6 +6,8 @@
     <title>Inicio de sesión</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="views/css/styles.css">
+  <link rel="icon" type="image/x-icon" href="http://localhost/Arreglado/logo.png">
+
 
 </head>
 <body>
@@ -55,34 +57,14 @@ if (isset($_POST["ci"]) && isset($_POST["contraseña"])) {
     // Conectarse a la base de datos
     $conn = get_connection();
 
-// Consultar la tabla juez para comprobar las credenciales
-$sql_juez = "SELECT * FROM juez WHERE ci = ? AND contraseña = ?";
-$stmt_juez = $conn->prepare($sql_juez);
-$stmt_juez->bind_param("is", $ci, $contraseña);  // Assuming ci and contraseña are both strings
-$stmt_juez->execute();
-$result_juez = $stmt_juez->get_result();
-
 // Consultar la tabla administrativo para comprobar las credenciales
 $sql_administrativo = "SELECT * FROM administrativo WHERE ci = ? AND contraseña = ?";
 $stmt_administrativo = $conn->prepare($sql_administrativo);
-$stmt_administrativo->bind_param("is", $ci, $contraseña);  // Assuming ci and contraseña are both strings
+$stmt_administrativo->bind_param("is", $ci, $contraseña); 
 $stmt_administrativo->execute();
 $result_administrativo = $stmt_administrativo->get_result();
 
-    // Si las credenciales se encuentran en la tabla juez, iniciar sesión como juez
-    if ($result_juez->num_rows == 1) {
-
-        // Obtener los datos del usuario
-        $fila_juez = $result_juez->fetch_assoc();
-
-        // Iniciar la sesión
-        session_start();
-        $_SESSION["usuario"] = $fila_juez["id"];
-        $_SESSION["tipo_usuario"] = "Juez";
-        
-        // Redirigir al usuario a la página principal de juez
-        header("Location: views/competidores.php");
-    } else if ($result_administrativo->num_rows == 1) {
+    if ($result_administrativo->num_rows == 1) {
 
         // Obtener los datos del usuario
         $fila_administrativo = $result_administrativo->fetch_assoc();

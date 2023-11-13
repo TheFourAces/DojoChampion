@@ -25,7 +25,7 @@ include "sidebar.php";
   $conn = get_connection();
 
   // Consultar la tabla competidores
-  $sql = "SELECT * FROM competidor";
+  $sql = "SELECT * FROM pool";
   $stmt = $conn->prepare($sql);
   $stmt->execute();
   $result = $stmt->get_result();
@@ -36,24 +36,16 @@ include "sidebar.php";
   // Imprimir la cabecera de la tabla
   echo "<thead>";
   echo "<tr>";
-  echo "<th>Nombre</th>";
-  echo "<th>Apellido</th>";
-  echo "<th>Edad</th>";
-  echo "<th>Categoria</th>";
-  echo "<th>Sexo</th>";
-  echo "<th>CI</th>";
+  echo "<th>Id Pool</th>";
+  echo "<th>Ci</th>";
   echo "</tr>";
   echo "</thead>";
 
   // Imprimir los datos de los competidores
   while ($fila = $result->fetch_assoc()) {
     echo "<tr>";
-    echo "<td>" . $fila["nombre"] . "</td>";
-    echo "<td>" . $fila["apellido"] . "</td>";
-    echo "<td>" . calcular_edad($fila["fnac"]) . "</td>";
-    echo "<td>" . $fila["categoria"] . "</td>";
-    echo "<td>" . $fila["sexo"] . "</td>";
-    echo "<td>" . $fila["ci"] . "</td>";
+    echo "<td>" . $fila["id_pool"] . "</td>";
+    echo "<td>" . $fila["ci_competidor"] . "</td>";
     echo "</tr>";
   }
 
@@ -71,9 +63,9 @@ include "sidebar.php";
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-        <li><a href="crud/agregar-competidor.php">Agregar</a></li>
-        <li><a href="crud/editar-competidor.php">Editar</a></li>
-        <li><a href="crud/eliminar-competidor.php">Eliminar</a></li>
+        <li><a href="crud/pools/agregar-pool.php">Agregar</a></li>
+        <li><a href="crud/pools/editar-pool.php">Editar</a></li>
+        <li><a href="crud/pools/eliminar-pool.php">Eliminar</a></li>
     </ul>
 </div>
 </div>

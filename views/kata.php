@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Competidores</title>
+  <title>Katas</title>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <link rel="icon" type="image/x-icon" href="http://localhost/Arreglado/logo.png">
-
 </head>
 <body>
 <?php
@@ -25,7 +24,7 @@ include "sidebar.php";
   $conn = get_connection();
 
   // Consultar la tabla competidores
-  $sql = "SELECT * FROM competidor";
+  $sql = "SELECT * FROM kata";
   $stmt = $conn->prepare($sql);
   $stmt->execute();
   $result = $stmt->get_result();
@@ -36,24 +35,16 @@ include "sidebar.php";
   // Imprimir la cabecera de la tabla
   echo "<thead>";
   echo "<tr>";
+  echo "<th>Numero</th>";
   echo "<th>Nombre</th>";
-  echo "<th>Apellido</th>";
-  echo "<th>Edad</th>";
-  echo "<th>Categoria</th>";
-  echo "<th>Sexo</th>";
-  echo "<th>CI</th>";
   echo "</tr>";
   echo "</thead>";
 
   // Imprimir los datos de los competidores
   while ($fila = $result->fetch_assoc()) {
     echo "<tr>";
-    echo "<td>" . $fila["nombre"] . "</td>";
-    echo "<td>" . $fila["apellido"] . "</td>";
-    echo "<td>" . calcular_edad($fila["fnac"]) . "</td>";
-    echo "<td>" . $fila["categoria"] . "</td>";
-    echo "<td>" . $fila["sexo"] . "</td>";
-    echo "<td>" . $fila["ci"] . "</td>";
+    echo "<td>" . $fila["numeroKata"] . "</td>";
+    echo "<td>" . $fila["nombreKata"] . "</td>";
     echo "</tr>";
   }
 
@@ -65,17 +56,6 @@ include "sidebar.php";
   $conn->close();
   ?>
 
-<div class="dropdown-container">
-    <button type="button" id="button" class="button dropdown-toggle" data-toggle="dropdown">
-        Opciones
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        <li><a href="crud/agregar-competidor.php">Agregar</a></li>
-        <li><a href="crud/editar-competidor.php">Editar</a></li>
-        <li><a href="crud/eliminar-competidor.php">Eliminar</a></li>
-    </ul>
-</div>
 </div>
 </div>
 </body>
