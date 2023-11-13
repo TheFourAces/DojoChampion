@@ -7,6 +7,7 @@ define("DB_DATABASE", "cuk");
 
 // Crear una conexión a la base de datos
 $conn = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+$conn->set_charset("utf8mb4");
 
 // Verificar si hay errores de conexión
 if (mysqli_connect_error()) {

@@ -62,9 +62,9 @@ VALUES
 
 INSERT INTO competidor (ci, nombre, apellido, fnac, sexo,categoria)
 VALUES
-(55555555, 'chao', 'leoin', '2001-03-12', 'M','sub-22'),
-(66666666, 'ignacio', 'rodriguez', '2001-04-15', 'M','sub-22'),
-(77777777, 'lucia', 'perez', '2004-007-31', 'F','sub-20');
+(55555555, 'chao', 'leoin', '2001-03-12', 'M','mayores'),
+(66666666, 'ignacio', 'rodriguez', '2001-04-15', 'M','mayores'),
+(77777777, 'lucia', 'perez', '2004-007-31', 'F','mayores');
 
 select * from administrativo;
 select * from juez;

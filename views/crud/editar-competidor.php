@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+    
+<div id="mySidebar">
+  <img src="../../logo.png" alt="">
+  <a href="../competidores.php" class="texto">Competidores</a>
+</div>
+<div id="main" style="width:80vw;">
+
     <section class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -30,6 +37,15 @@
                         <input type="text" class="form-control" id="apellido" name="apellido" required pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+">
                     </div>
                     <div class="form-group">
+                    <label for="categoria">Categoria:</label>
+                    <select class="form-control" id="categoria" name="categoria" required>
+                    <option value="12-13">12-13</option>
+                    <option value="14-15">14-15</option>
+                    <option value="16-17">16-17</option>
+                    <option value="mayores">Mayores</option>
+                    </select>
+                    
+                    <div class="form-group">
                         <label for="fnac">Nacimiento:</label>
                         <input type="date" class="form-control" id="fnac" name="fnac" required>
                     </div>
@@ -50,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_ci = $_POST["new_ci"];
     $nombre = $_POST["nombre"];
     $apellido = $_POST["apellido"];
+    $categoria = $_POST["categoria"];
     $fnac = $_POST["fnac"];
     $sexo = $_POST["sexo"];
 
@@ -68,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return;
     }
 
-    $sql = "UPDATE competidor SET ci='$new_ci', nombre='$nombre', apellido='$apellido', fnac='$fnac', sexo='$sexo' WHERE ci='$ci'";
+    $sql = "UPDATE competidor SET ci='$new_ci', nombre='$nombre', apellido='$apellido', categoria='$categoria', fnac='$fnac', sexo='$sexo' WHERE ci='$ci'";
 
     if ($conn->query($sql) === TRUE) {
         echo "Competidor editado con éxito.";
@@ -80,6 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </section>
+</div>
+
     <script src="../js/bootstrap.min.js"></script>
 </body>
 </html>

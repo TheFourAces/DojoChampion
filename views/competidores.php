@@ -12,7 +12,8 @@
 </head>
 <body>
 <div id="mySidebar">
-  <a href="#">Competidores</a>
+  <img src="../logo.png" alt="">
+  <a href="#" class="texto">Competidores</a>
 </div>
 <div id="main">
 <div class="tabla">
@@ -30,7 +31,7 @@
   $result = $stmt->get_result();
 
   // Inicializar la tabla Bootstrap
-  echo "<table class='table table-responsive table-striped table-bordered'>";
+  echo "<table class='mitabla table-responsive table-striped table-bordered'>";
 
   // Imprimir la cabecera de la tabla
   echo "<thead>";
@@ -38,7 +39,9 @@
   echo "<th>Nombre</th>";
   echo "<th>Apellido</th>";
   echo "<th>Edad</th>";
+  echo "<th>Categoria</th>";
   echo "<th>Sexo</th>";
+  echo "<th>CI</th>";
   echo "</tr>";
   echo "</thead>";
 
@@ -48,7 +51,9 @@
     echo "<td>" . $fila["nombre"] . "</td>";
     echo "<td>" . $fila["apellido"] . "</td>";
     echo "<td>" . calcular_edad($fila["fnac"]) . "</td>";
+    echo "<td>" . $fila["categoria"] . "</td>";
     echo "<td>" . $fila["sexo"] . "</td>";
+    echo "<td>" . $fila["ci"] . "</td>";
     echo "</tr>";
   }
 

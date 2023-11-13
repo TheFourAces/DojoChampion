@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de competidors</title>
+    <title>Eliminar competidores</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+    
+<div id="mySidebar">
+  <img src="../../logo.png" alt="">
+  <a href="../competidores.php" class="texto">Competidores</a>
+</div>
+<div id="main" style="width:80vw;">
+
     <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -41,6 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["buscar_ci"])) {
         echo "<p>Cédula: " . $row["ci"] . "</p>";
         echo "<p>Nombre: " . $row["nombre"] . "</p>";
         echo "<p>Apellido: " . $row["apellido"] . "</p>";
+        echo "<p>Categoria: " . $row["categoria"] . "</p>";
         echo "<p>Nacimiento: " . $row["fnac"] . "</p>";
         echo "<p>Sexo: " . $row["sexo"] . "</p>";
 
@@ -85,6 +93,8 @@ $conn->close();
         </div>
     </div>
 </div>
+</div>
+
     <script src="assets/js/bootstrap.min.js"></script>
 </body>
 </html>

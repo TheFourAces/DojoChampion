@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+<div id="mySidebar">
+  <img src="../../logo.png" alt="">
+  <a href="../competidores.php" class="texto">Competidores</a>
+</div>
+<div id="main" style="width:80vw;">
+
     <section class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -19,16 +25,25 @@
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+">
+                        <input type="text" class="form-control" id="nombre" name="nombre" required pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+" title="Solo letras y espacios son permitidos">
                     </div>
                     <div class="form-group">
                         <label for="apellido">Apellido:</label>
-                        <input type="text" class="form-control" id="apellido" name="apellido" required pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+">
+                        <input type="text" class="form-control" id="apellido" name="apellido" required pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+" title="Solo letras y espacios son permitidos">
                     </div>
+                    <div class="form-group">
+                    <label for="categoria">Categoria:</label>
+                    <select class="form-control" id="categoria" name="categoria" required>
+                    <option value="12-13">12-13</option>
+                    <option value="14-15">14-15</option>
+                    <option value="16-17">16-17</option>
+                    <option value="mayores">Mayores</option>
+                    </select>
                     <div class="form-group">
                         <label for="fnac">Nacimiento:</label>
                         <input type="date" class="form-control" id="fnac" name="fnac" required>
                     </div>
+                    
                     <div class="form-group">
                     <label for="sexo">Sexo:</label>
                     <select class="form-control" id="sexo" name="sexo" required>
@@ -46,6 +61,7 @@
                     $ci = $_POST["ci"];
                     $nombre = $_POST["nombre"];
                     $apellido = $_POST["apellido"];
+                    $categoria = $_POST["categoria"];
                     $fnac = $_POST["fnac"];
                     $sexo = $_POST["sexo"];
 
@@ -59,7 +75,7 @@
                         return;
                     }
 
-                    $sql = "INSERT INTO competidor (ci, nombre, apellido, fnac, sexo) VALUES ('$ci', '$nombre', '$apellido', '$fnac', '$sexo')";
+                    $sql = "INSERT INTO competidor (ci, nombre, apellido, categoria, fnac, sexo) VALUES ('$ci', '$nombre', '$apellido', '$categoria', '$fnac', '$sexo')";
 
                     if ($conn->query($sql) === TRUE) {
                         echo "competidor agregado con éxito.";
@@ -71,6 +87,7 @@
             </div>
         </div>
     </section>
+            </div>
     <script src="../js/bootstrap.min.js"></script>
 </body>
 </html>
