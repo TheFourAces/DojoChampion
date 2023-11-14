@@ -12,7 +12,7 @@ CREATE TABLE competidor (
    apellido VARCHAR(50) NOT NULL, 
    fnac DATE NOT NULL,
    sexo char(1) NOT NULL,
-   categoria varchar(30) not null);
+   categoria varchar(30) not null,);
    
 CREATE TABLE juez  (
 	id int(1) PRIMARY KEY NOT NULL
@@ -40,9 +40,13 @@ CREATE TABLE ronda(
 );
 CREATE TABLE pool(
 	id_pool int primary key NOT NULL,
-   ci_competidor int NOT NULL;
+   ci_competidor int NOT NULL
 );
-   
+ALTER TABLE pool
+ADD CONSTRAINT fk_ci_competidor
+FOREIGN KEY (ci_competidor)
+REFERENCES competidor(ci);
+
    
 INSERT INTO torneo (idTorneo, fecha) VALUES 
 (1, '2023-11-11');
@@ -62,8 +66,10 @@ VALUES
 (2),
 (3),
 (4),
-(5),
+(5);
 
+insert into pool (id_pool, ci_competidor) 
+values (4, 55555555);
 
 INSERT INTO competidor (ci, nombre, apellido, fnac, sexo, categoria)
 VALUES

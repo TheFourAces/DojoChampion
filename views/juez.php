@@ -16,46 +16,109 @@
 include "sidebar.php";
 ?>
 <div id="main">
+            <!-- Formulario de búsqueda -->
+            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                <div class="form-group">
+                    <label for="buscar_ci">Cédula del competidor:</label>
+                    <input type="text" class="form-control" id="buscar_ci" name="buscar_ci" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
 <div class="tabla">
 
-  <?php
-  include "../database/database.php";
+<?php
+include "../database/database.php";
 
-  // Conectarse a la base de datos
-  $conn = get_connection();
+// Conectarse a la base de datos
+$conn = get_connection();
 
-  // Consultar la tabla competidores
-  $sql = "SELECT * FROM pool";
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
-  $result = $stmt->get_result();
+// Verificar si se ha enviado el formulario de búsqueda
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["buscar_ci"])) {
+    // Obtén el valor de la cédula a buscar
+    $buscar_ci = $_POST["buscar_ci"];
 
-  // Inicializar la tabla Bootstrap
-  echo "<table class='mitabla table-responsive table-striped table-bordered'>";
+    // Realiza la consulta para buscar al competidor por cédula
+    $sql = "SELECT pool.id_pool, pool.ci_competidor, competidor.nombre, competidor.apellido, competidor.categoria, competidor.fnac, competidor.sexo, competidor.ci FROM pool
+    JOIN competidor ON pool.ci_competidor = competidor.ci
+    WHERE competidor.ci = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $buscar_ci);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-  // Imprimir la cabecera de la tabla
-  echo "<thead>";
-  echo "<tr>";
-  echo "<th>Id Pool</th>";
-  echo "<th>Ci</th>";
-  echo "</tr>";
-  echo "</thead>";
+    // Imprimir la tabla con los resultados de la búsqueda
+    echo "<table class='mitabla table-responsive table-striped table-bordered'>";
+    echo "<thead>";
+    echo "<tr>";
+    echo "<th>idpool</th>";
+    echo "<th>Nombre</th>";
+    echo "<th>Apellido</th>";
+    echo "<th>Edad</th>";
+    echo "<th>Categoria</th>";
+    echo "<th>Sexo</th>";
+    echo "<th>CI</th>";
+    echo "</tr>";
+    echo "</thead>";
 
-  // Imprimir los datos de los competidores
-  while ($fila = $result->fetch_assoc()) {
+    // Imprimir los datos de los competidores encontrados
+    while ($fila = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $fila["id_pool"] . "</td>";
+        echo "<td>" . $fila["nombre"] . "</td>";
+        echo "<td>" . $fila["apellido"] . "</td>";
+        echo "<td>" . calcular_edad($fila["fnac"]) . "</td>";
+        echo "<td>" . $fila["categoria"] . "</td>";
+        echo "<td>" . $fila["sexo"] . "</td>";
+        echo "<td>" . $fila["ci"] . "</td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+
+    // Cerrar la conexión a la base de datos
+    $stmt->close();
+}
+
+// Consultar la tabla competidores (sin filtro de búsqueda)
+$sql = "SELECT pool.id_pool, pool.ci_competidor, competidor.nombre, competidor.apellido, competidor.categoria, competidor.fnac, competidor.sexo, competidor.ci FROM pool
+JOIN competidor ON pool.ci_competidor = competidor.ci";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Imprimir la tabla completa
+echo "<table class='mitabla table-responsive table-striped table-bordered'>";
+echo "<thead>";
+echo "<tr>";
+echo "<th>idpool</th>";
+echo "<th>Nombre</th>";
+echo "<th>Apellido</th>";
+echo "<th>Edad</th>";
+echo "<th>Categoria</th>";
+echo "<th>Sexo</th>";
+echo "<th>CI</th>";
+echo "</tr>";
+echo "</thead>";
+
+while ($fila = $result->fetch_assoc()) {
     echo "<tr>";
     echo "<td>" . $fila["id_pool"] . "</td>";
-    echo "<td>" . $fila["ci_competidor"] . "</td>";
+    echo "<td>" . $fila["nombre"] . "</td>";
+    echo "<td>" . $fila["apellido"] . "</td>";
+    echo "<td>" . calcular_edad($fila["fnac"]) . "</td>";
+    echo "<td>" . $fila["categoria"] . "</td>";
+    echo "<td>" . $fila["sexo"] . "</td>";
+    echo "<td>" . $fila["ci"] . "</td>";
     echo "</tr>";
-  }
+}
 
-  // Cerrar la tabla Bootstrap
-  echo "</table>";
+echo "</table>";
 
-  // Cerrar la conexión a la base de datos
-  $stmt->close();
-  $conn->close();
-  ?>
+// Cerrar la conexión a la base de datos
+$stmt->close();
+$conn->close();
+?>
+
 
 <div class="dropdown-container">
     <button type="button" id="button" class="button dropdown-toggle" data-toggle="dropdown">

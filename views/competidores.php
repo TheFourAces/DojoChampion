@@ -16,11 +16,58 @@
 include "sidebar.php";
 ?>
 <div id="main">
+            <!-- Formulario de búsqueda -->
+            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                <div class="form-group">
+                    <label for="buscar_ci">Cédula del competidor:</label>
+                    <input type="text" class="form-control" id="buscar_ci" name="buscar_ci" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
 <div class="tabla">
 
   <?php
   include "../database/database.php";
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["buscar_ci"])) {
+    // Obtén el valor de la cédula a buscar
+    $buscar_ci = $_POST["buscar_ci"];
 
+    // Realiza la consulta para buscar al competidor por cédula
+    $sql = "SELECT * FROM competidor WHERE ci = '$buscar_ci'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 1) {
+        // Si se encontró al competidor, muestra sus datos
+        echo "<table class='mitabla table-responsive table-striped table-bordered'>";
+
+        // Imprimir la cabecera de la tabla
+        echo "<thead>";
+        echo "<tr>";
+        echo "<th>Nombre</th>";
+        echo "<th>Apellido</th>";
+        echo "<th>Edad</th>";
+        echo "<th>Categoria</th>";
+        echo "<th>Sexo</th>";
+        echo "<th>CI</th>";
+        echo "</tr>";
+        echo "</thead>";
+      
+        // Imprimir los datos de los competidores
+        while ($fila = $result->fetch_assoc()) {
+          echo "<tr>";
+          echo "<td>" . $fila["nombre"] . "</td>";
+          echo "<td>" . $fila["apellido"] . "</td>";
+          echo "<td>" . calcular_edad($fila["fnac"]) . "</td>";
+          echo "<td>" . $fila["categoria"] . "</td>";
+          echo "<td>" . $fila["sexo"] . "</td>";
+          echo "<td>" . $fila["ci"] . "</td>";
+          echo "</tr>";
+        }
+      
+        // Cerrar la tabla Bootstrap
+        echo "</table>";
+    }
+}
   // Conectarse a la base de datos
   $conn = get_connection();
 

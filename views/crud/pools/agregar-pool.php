@@ -17,12 +17,12 @@ include "../../sidebar.php";
     <section class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h2>Agregar competidores</h2>
+                <h2>Agregar pool</h2>
                 <!-- Formulario para agregar un competidor -->
                 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                     <div class="form-group">
                         <label for="id_pool">ID Pool:</label>
-                        <input type="text" class="form-control" id="id_pool" name="id_pool" required pattern="[0-9]{1}" maxlength="1" placeholder="Del 1 hasta el 8">
+                        <input type="text" class="form-control" id="id_pool" name="id_pool" required pattern="[0-9]{10}" maxlength="10" placeholder="Hasta 10 digitos">
                     </div>
                     <div class="form-group">
                         <label for="ci_competidor">Ci Competidor:</label>
