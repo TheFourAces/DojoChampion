@@ -22,7 +22,7 @@ include "../../sidebar.php";
                 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                     <div class="form-group">
                         <label for="id_pool">ID Pool:</label>
-                        <input type="text" class="form-control" id="id_pool" name="id_pool" required pattern="[0-9]{10}" maxlength="10" placeholder="Hasta 10 digitos">
+                        <input type="text" class="form-control" id="id_pool" name="id_pool" required pattern="[0-9]{9}" maxlength="9" placeholder="Hasta 9 digitos">
                     </div>
                     <div class="form-group">
                         <label for="ci_competidor">Ci Competidor:</label>
